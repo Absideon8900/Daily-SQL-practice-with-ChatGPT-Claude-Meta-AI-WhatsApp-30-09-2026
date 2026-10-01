@@ -191,5 +191,63 @@ sqlite> SELECT DISTINCT category FROM orders;
 │ Clothing       │
 │ Home & Kitchen │
 ╰────────────────╯
+sqlite> SELECT payment method, COUNT(*) FROM orders GROUP BY payment method;
+Parse error near line 3: near "method": syntax error
+  ent method, COUNT(*) FROM orders GROUP BY payment method;
+                                      error here ---^
+sqlite>  SELECT payment_method, COUNT(*) FROM orders GROUP BY payment_method;
+╭────────────────┬──────────╮
+│ payment_method │ COUNT(*) │
+╞════════════════╪══════════╡
+│                │       27 │
+│ Apple Pay      │       32 │
+│ Credit Card    │       35 │
+│ Debit Card     │       30 │
+│ PayPal         │       26 │
+╰────────────────┴──────────╯
+sqlite>  SELECT payment method, MEAN(*) FROM orders GROUP BY payment method;
+Parse error near line 5: near "method": syntax error
+  ment method, MEAN(*) FROM orders GROUP BY payment method;
+                                      error here ---^
+sqlite> SELECT payment_method, MEAN(*) FROM orders GROUP BY payment_method;
+Parse error near line 6: no such function: MEAN
+  SELECT payment_method, MEAN(*) FROM orders GROUP BY payment_method;
+                         ^--- error here
+sqlite> SELECT payment_method, SUM(*) FROM orders GROUP BY payment_method;
+Parse error near line 7: wrong number of arguments to function SUM()
+  SELECT payment_method, SUM(*) FROM orders GROUP BY payment_method;
+                         ^--- error here
+sqlite> SELECT payment_method, AVG() FROM orders GROUP BY payment_method;
+Parse error near line 8: wrong number of arguments to function AVG()
+  SELECT payment_method, AVG() FROM orders GROUP BY payment_method;
+                         ^--- error here
+sqlite> SELECT AVG(unit_price) FROM orders;
+╭────────────────────╮
+│  AVG(unit_price)   │
+╞════════════════════╡
+│ 148.38286666666667 │
+╰────────────────────╯
+sqlite> SELECT MAX(unit_price) FROM orders;
+╭─────────────────╮
+│ MAX(unit_price) │
+╞═════════════════╡
+│          299.11 │
+╰─────────────────╯
+sqlite> SELECT MIN(unit_price) FROM orders;
+╭─────────────────╮
+│ MIN(unit_price) │
+╞═════════════════╡
+│           17.08 │
+╰─────────────────╯
+sqlite> SELECT AVG(unit_price) FROM orders;
+╭────────────────────╮
+│  AVG(unit_price)   │
+╞════════════════════╡
+│ 148.38286666666667 │
+╰────────────────────╯
+sqlite> SELECT AVG(unit_price) FROM GROUP BY payment_method;
+Parse error near line 13: near "GROUP": syntax error
+  SELECT AVG(unit_price) FROM GROUP BY payment_method;
+                error here ---^
 sqlite>
 ```
